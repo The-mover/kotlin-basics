@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMyData() {
-       val retrofitBuilder = Retrofit.Builder()
-           .addConverterFactory(GsonConverterFactory.create())
-           .baseUrl(BASE_URL)
-           .build()
-           .create(ApiInterface::class.java)
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+            .create(ApiInterface::class.java)
 
         val retrofitData = retrofitBuilder.getData()
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 val responseBody = response.body()!!
                 val myStringBuilder = StringBuilder()
 
-                for(myData in responseBody) {
+                for (myData in responseBody) {
                     myStringBuilder.append(myData.title)
                     myStringBuilder.append("\n")
                 }
@@ -51,6 +51,21 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<MyDataItem>?>, t: Throwable) {
                 Log.d("MainActivity", "onFailure: ${t.message}")
+            }
+        })
+
+        // post related code
+        val myDataItem = MyDataItem("I am trying to make a post request", 101, "Post Request", 22)
+        val retrofitAddPost = retrofitBuilder.addPost(myDataItem)
+
+        retrofitAddPost.enqueue(object : Callback<MyDataItem?> {
+            override fun onResponse(call: Call<MyDataItem?>, response: Response<MyDataItem?>) {
+                val responseBody = response.body()!!
+                Log.d("MainActivity", "Here is the title: ${responseBody.title}")
+            }
+
+            override fun onFailure(call: Call<MyDataItem?>, t: Throwable) {
+                Log.e("MainActivity", t.toString())
             }
         })
     }
