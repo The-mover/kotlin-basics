@@ -1,5 +1,6 @@
-package com.example.networkcall
+package com.example.networkcall.NetworkRelatedClass
 
+import com.example.networkcall.Model.MyDataItem
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

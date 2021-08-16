@@ -1,4 +1,4 @@
-package com.example.networkcall
+package com.example.networkcall.Model
 
 data class MyDataItem(
     val body: String,
