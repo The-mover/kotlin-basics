@@ -1,6 +1,6 @@
 package com.example.networkcall.NetworkRelatedClass
 
-import com.example.networkcall.Model.MyData
+
 import com.example.networkcall.Model.MyDataItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class NetworkCall : MyApiService {
 
-    override fun getDataFromServer(callback: ResponseCallback<String>) {
+    override fun getDataFromServer(callback: ResponseCallback<List<MyDataItem>>) {
         val retrofitService = RetrofitApiClient.retrofitService
         val retrofitData = retrofitService.getData()
 
@@ -21,7 +21,7 @@ class NetworkCall : MyApiService {
                 val responseBody = response.body()!!
 
                 if( responseBody.isNotEmpty() ) {
-                    callback.onSuccess(responseBody[0].title)
+                    callback.onSuccess(responseBody)
                 } else {
                     callback.onError(Exception("Empty List"))
                 }
